@@ -30,10 +30,6 @@ namespace VolumetricLines
 	{
 		// Used to compute the average value of all the Vector3's components:
 		static readonly Vector3 Average = new Vector3(1f/3f, 1f/3f, 1f/3f);
-
-      // ƒŒ[ƒU[‚Ì’·‚³
-      [SerializeField]
-      private float m_length = 10f;
       
 	  #region private variables
       /// <summary>
