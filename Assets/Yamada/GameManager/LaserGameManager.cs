@@ -45,7 +45,7 @@ public class LaserGameManager : MonoBehaviour
       {
          Debug.Log("“–‚½‚Á‚½‚±‚Æ‚ðŒŸ’m");
          isChangingScene = true;
-         StartCoroutine(ChangeSceneAfterDelay(1.0f));
+         //StartCoroutine(ChangeSceneAfterDelay(2.0f));
       }
    }
 
