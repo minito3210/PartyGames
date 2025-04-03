@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public enum ItemType
@@ -11,8 +10,8 @@ public enum ItemType
 public class Item : MonoBehaviour
 {
     public ItemType itemType;
-    public float effectDuration = 5.0f; // 効果時間（スピードアップ用）
-    public float lifetime = 10.0f; // 10秒後に消える
+    public float effectDuration = 5.0f;
+    public float lifetime = 10.0f;
 
     void Start()
     {
@@ -29,25 +28,23 @@ public class Item : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            PlayerController player = other.GetComponent<PlayerController>();
+            BombThrower bombThrower = other.GetComponent<BombThrower>();
+            SpeedHandler speedHandler = other.GetComponent<SpeedHandler>();
 
-            if (player != null)
-            {
-                ApplyEffect(player);
-                Destroy(gameObject); // アイテムを消す
-            }
+            ApplyEffect(bombThrower, speedHandler);
+            Destroy(gameObject);
         }
     }
 
-    void ApplyEffect(PlayerController player)
+    void ApplyEffect(BombThrower bombThrower, SpeedHandler speedHandler)
     {
         switch (itemType)
         {
             case ItemType.BombCapacity:
-                player.IncreaseBombCapacity();
+                bombThrower?.IncreaseBombCapacity();
                 break;
             case ItemType.SpeedBoost:
-                player.StartCoroutine(player.SpeedBoost(effectDuration));
+                speedHandler?.ActivateSpeedBoost(effectDuration);
                 break;
         }
     }
