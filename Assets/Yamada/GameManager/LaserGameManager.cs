@@ -10,8 +10,8 @@ public class LaserGameManager : MonoBehaviour
 {
    [Header("プレイヤーモデル"), SerializeField]
    private GameObject m_player;
-   //[Header("タイマー表示用UIテキスト"), SerializeField]
-   //private TextMeshProUGUI m_timerText;
+   [Header("タイマー表示用UIテキスト"), SerializeField]
+   private TextMeshProUGUI m_timerText;
    [Header("レベルアップ通知画像"), SerializeField]
    private Image m_levelUpImage; // レベルアップ時に表示するImage
 
@@ -37,7 +37,7 @@ public class LaserGameManager : MonoBehaviour
       if (!isChangingScene)
       {
          m_timer += Time.deltaTime;
-         //m_timerText.text = m_timer.ToString("F0") + " S";
+         m_timerText.text = m_timer.ToString("F0") + " S";
          GameLevelUp();
       }
 
@@ -45,6 +45,7 @@ public class LaserGameManager : MonoBehaviour
       {
          Debug.Log("当たったことを検知");
          isChangingScene = true;
+         //シーン切り替え
          //StartCoroutine(ChangeSceneAfterDelay(2.0f));
       }
    }

@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
    {
       KeyPush();
 
-      if(m_playerObject.transform.position.y <= -1.5f)
+      if(m_playerObject.transform.position.y <= -3.5f)
       {
          Debug.Log("場外に落ちた");
          m_isGameOver = true;
