@@ -1,18 +1,28 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Health : MonoBehaviour
 {
     public int maxHealth = 100;
     private int currentHealth;
-    public Transform respawnPoint; // リスポーン地点
-    public float invincibilityDuration = 3f; // 無敵時間
-    private bool isInvincible = false; // 無敵フラグ
+    public Transform respawnPoint;
+    public float respawnDelay = 3f;
+    public float invincibilityDuration = 3f;
+    public float blinkInterval = 0.2f;
+
+    private bool isInvincible = false;
+    private Renderer[] renderers; // すべての Renderer を取得
 
     void Start()
     {
         currentHealth = maxHealth;
+
+        // 自分と子オブジェクトからすべての Renderer を取得
+        renderers = GetComponentsInChildren<Renderer>();
+        if (renderers.Length == 0)
+        {
+            Debug.LogError("Renderer が見つかりません！オブジェクトに MeshRenderer があるか確認してください。");
+        }
     }
 
     public void TakeDamage(int amount)
@@ -26,18 +36,18 @@ public class Health : MonoBehaviour
         currentHealth -= amount;
         if (currentHealth <= 0)
         {
-            Respawn();
+            StartCoroutine(Respawn());
         }
     }
 
-    void Respawn()
+    IEnumerator Respawn()
     {
-        Debug.Log($"{gameObject.name} がリスポーンします");
+        Debug.Log($"{gameObject.name} が {respawnDelay} 秒後にリスポーンします");
 
-        // 体力を回復
+        yield return new WaitForSeconds(respawnDelay);
+
         currentHealth = maxHealth;
 
-        // リスポーン地点に移動
         if (respawnPoint != null)
         {
             transform.position = respawnPoint.position;
@@ -47,7 +57,6 @@ public class Health : MonoBehaviour
             Debug.LogWarning("リスポーン地点が設定されていません！");
         }
 
-        // 無敵状態にする
         StartCoroutine(Invincibility());
     }
 
@@ -56,12 +65,27 @@ public class Health : MonoBehaviour
         isInvincible = true;
         Debug.Log("無敵状態開始！");
 
-        // 一定時間待つ
-        yield return new WaitForSeconds(invincibilityDuration);
+        float elapsed = 0f;
+        while (elapsed < invincibilityDuration)
+        {
+            ToggleRenderer(false); // 透明化
+            yield return new WaitForSeconds(blinkInterval);
+            ToggleRenderer(true); // 表示
+            yield return new WaitForSeconds(blinkInterval);
+            elapsed += blinkInterval * 2;
+        }
 
-        // 無敵解除
+        ToggleRenderer(true);
         isInvincible = false;
         Debug.Log("無敵状態終了");
+    }
+
+    void ToggleRenderer(bool isVisible)
+    {
+        foreach (Renderer rend in renderers)
+        {
+            rend.enabled = isVisible;
+        }
     }
 
     public int GetCurrentHealth()
