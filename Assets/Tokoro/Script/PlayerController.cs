@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
         Vector3 forward = new Vector3(cameraTransform.forward.x, 0, cameraTransform.forward.z).normalized;
         Vector3 right = new Vector3(cameraTransform.right.x, 0, cameraTransform.right.z).normalized;
         Vector3 moveDirection = forward * v + right * h;
+        
 
         if (moveDirection.magnitude > 0.1f)
         {
