@@ -45,10 +45,9 @@ public class Player : MonoBehaviour
       Vector3 moveDirection = Vector3.zero;
       // カメラのトランスフォームを取得
       Transform cameraTransform = Camera.main.transform;
-      // �J�����̑O�����ƉE�������擾�iY�������͖������Đ����ړ��̂ݍl���j
       Vector3 forward = cameraTransform.forward;
       Vector3 right = cameraTransform.right;
-      forward.y = 0; // �㉺�̌X���𖳎����Đ��������̂ݗ��p
+      forward.y = 0; 
       right.y = 0;
 
       forward.Normalize();
@@ -68,7 +67,7 @@ public class Player : MonoBehaviour
       if (moveDirection != Vector3.zero)
       {
          moveDirection.Normalize();
-         ////モデルに回転を与える(補間して)
+         //モデルに回転を与える(補間して)
          Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
          m_playerObject.transform.rotation = Quaternion.Slerp(m_playerObject.transform.rotation, targetRotation, Time.deltaTime * 10f);
 
