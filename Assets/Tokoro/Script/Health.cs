@@ -7,6 +7,7 @@ public class Health : MonoBehaviour
     private int currentHealth;
     public Transform respawnPoint;
     public float invincibilityDuration = 3f;
+    public float fallThresholdY = -10f; // Y座標がこの値以下になったらリスポーン
     private bool isInvincible = false;
     private Renderer[] renderers;
     private Collider[] colliders;
@@ -31,6 +32,15 @@ public class Health : MonoBehaviour
         if (ghostLayer == -1)
         {
             Debug.LogWarning("Ghost レイヤーが存在しません！レイヤー設定を確認してください。");
+        }
+    }
+
+    void Update()
+    {
+        if (!isInvincible && transform.position.y < fallThresholdY)
+        {
+            Debug.Log("プレイヤーが落下しました！");
+            StartCoroutine(Respawn());
         }
     }
 
