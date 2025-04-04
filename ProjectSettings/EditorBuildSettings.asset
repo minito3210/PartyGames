@@ -8,5 +8,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/NGO_Minimal_Setup/NGO_Setup.unity
     guid: 5c53191183b4d5b47a698188e1d3aa94
+  - enabled: 1
+    path: Assets/Tokoro/TokoroScene.unity
+    guid: b13813692e9eddb47b4aeb67090f5e72
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
