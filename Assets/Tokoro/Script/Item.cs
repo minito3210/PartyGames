@@ -4,7 +4,8 @@ using UnityEngine;
 public enum ItemType
 {
     BombCapacity,
-    SpeedBoost
+    SpeedBoost,
+    ExplosionPower
 }
 
 public class Item : MonoBehaviour
@@ -46,6 +47,12 @@ public class Item : MonoBehaviour
             case ItemType.SpeedBoost:
                 speedHandler?.ActivateSpeedBoost(effectDuration);
                 break;
+            case ItemType.ExplosionPower:
+                var powerHandler = bombThrower?.GetComponent<ExplosionPowerHandler>();
+                powerHandler?.IncreaseExplosionPower();
+                break;
         }
     }
+
+
 }

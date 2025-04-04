@@ -618,6 +618,7 @@ GameObject:
   - component: {fileID: 2464368715967262689}
   - component: {fileID: 2709415438245813233}
   - component: {fileID: -908456670773832814}
+  - component: {fileID: 6268991262829174234}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -698,9 +699,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   respawnPoint: {fileID: 4068493551054413097, guid: 1a04d3dd21bcafc4c87cb390f2552a3e, type: 3}
-  respawnDelay: 3
   invincibilityDuration: 3
-  blinkInterval: 0.2
+  fallThresholdY: -10
 --- !u!54 &7395917635214051858
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -778,7 +778,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bombPrefab: {fileID: 3050483008656347375, guid: d4a16ddd41511994983f29414d91eeef, type: 3}
   throwPoint: {fileID: 0}
-  throwForce: 10
+  maxBombs: 1
+  maxAllowedBombs: 5
+  explosionRadiusMultiplier: 1
+  knockbackForceMultiplier: 0.5
+--- !u!114 &6268991262829174234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2554218807498899361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c88c47b0b783bc347863d55cf350bc0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radiusIncrement: 0.1
+  knockbackIncrement: 0.05
 --- !u!1 &2618273671545218910
 GameObject:
   m_ObjectHideFlags: 0
