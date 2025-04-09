@@ -216,8 +216,8 @@ MonoBehaviour:
   m_playerObject: {fileID: 7346497091338900244}
   m_camera: {fileID: 2456060692179851956}
   m_speed: 10
-  maxSpeed: 20
-  m_jumpPower: 300
+  maxSpeed: 12
+  m_jumpPower: 380
 --- !u!136 &8241935603223737101
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -238,9 +238,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.81
-  m_Height: 3.97
+  m_Height: 3.47
   m_Direction: 1
-  m_Center: {x: 0, y: 1.72, z: 0}
+  m_Center: {x: 0, y: 1.67, z: 0}
 --- !u!114 &8841395855773334102
 MonoBehaviour:
   m_ObjectHideFlags: 0

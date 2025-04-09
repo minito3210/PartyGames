@@ -29,16 +29,20 @@ public class Player : NetworkBehaviour
    // Start is called before the first frame update
    void Start()
    {
+      AudioListener listener = m_camera.GetComponent<AudioListener>();
+
       // 自分のプレイヤーだけカメラを有効にする
       if (IsOwner && m_camera != null)
       {
          m_camera.enabled = true;
+         listener.enabled = true;
       }
       else
       {
          if (m_camera != null)
          {
             m_camera.enabled = false;
+            listener.enabled = false;
          }
       }
       m_rigidbody = GetComponent<Rigidbody>();
@@ -89,8 +93,6 @@ public class Player : NetworkBehaviour
       if (m_jumpNum > 0 && Input.GetKeyDown(KeyCode.Space))
       {
          jump = true;
-         m_jumpNum -= 1;
-         m_rigidbody.AddForce(Vector3.up * m_jumpPower);
       }
 
       //サーバーに入力情報を送信
@@ -102,10 +104,10 @@ public class Player : NetworkBehaviour
    private void SendInputToServerRpc(Vector3 moveDir, bool jump)
    {
       m_moveDirection = moveDir.normalized;
-      if (jump /*&& m_jumpNum > 0*/)
+      if (jump && m_jumpNum > 0)
       {
          m_jumpRequested = true;
-         //m_jumpNum -= 1;
+         m_jumpNum -= 1;
       }
    }
 
@@ -120,11 +122,10 @@ public class Player : NetworkBehaviour
          m_rigidbody.AddForce(m_moveDirection * m_speed, ForceMode.Acceleration);
       }
 
-      if(m_jumpRequested && m_jumpNum > 0)
+      if(m_jumpRequested && m_jumpNum >= 0)
       {
          m_rigidbody.AddForce(Vector3.up * m_jumpPower);
          m_jumpRequested = false;
-         m_jumpNum -= 1;
       }
 
       if(m_rigidbody.linearVelocity.magnitude > maxSpeed)
@@ -144,6 +145,8 @@ public class Player : NetworkBehaviour
 
    private void OnCollisionEnter(Collision collision)
    {
+      if (!IsServer) return; // サーバー側でのみジャンプ数をリセット
+
       if (collision.gameObject.CompareTag("Ground"))
       {
          m_jumpNum = 2;
