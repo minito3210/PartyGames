@@ -28,7 +28,7 @@ public class CharacterPull : MonoBehaviour
 
     public int maxHP = 100;
     public int currentHP;
-    public float speed = 1f;      // 力の倍率に使う
+    public float speed = 5.0f;      // 力の倍率に使う
     public int attackPower = 10;
 
     // 初期位置（リスポーン用）
@@ -36,7 +36,7 @@ public class CharacterPull : MonoBehaviour
 
     // ターン・発射・停止判定
     private bool isLaunched = false;
-    private bool pendingRespawn = false;
+    public bool pendingRespawn = false;
 private float stopTimer = 0f;
 private const float stopThreshold = 0.05f;
 private const float requiredStopDuration = 0.5f; // 0.5秒停止し続けたら終了
@@ -102,6 +102,7 @@ private const float requiredStopDuration = 0.5f; // 0.5秒停止し続けたら�
         {
             m_DragStart = GetMousePosition();
             isSelected = true;
+            TurnManager.Instance.SetCurrentCharacter(this);
         }
     }
 
@@ -175,29 +176,34 @@ void OnCollisionEnter(Collision collision)
     /// </summary>
     public void TakeDamage(int damage)
     {
-        if (!isAlive) return;
+    if (!isAlive) return;
 
-        currentHP -= damage;
-        Debug.Log($"{gameObject.name} took {damage} damage, currentHP: {currentHP}");
-        if (currentHP <= 0)
-        {
-            isAlive = false;
-            currentHP = maxHP;
+    currentHP -= damage;
+    Debug.Log($"{gameObject.name} took {damage} damage, currentHP: {currentHP}");
 
-            pendingRespawn = true; // リスポーン待ち
-            gameObject.SetActive(false); // 非表示にしておく
-        }
+    if (currentHP <= 0)
+    {
+        isAlive = false;
+        currentHP = maxHP; // 復活時のHP初期化
+        pendingRespawn = true;
+
+        // Rigidbody停止
+m_Physics.linearVelocity = Vector3.zero;
+m_Physics.angularVelocity = Vector3.zero;
+
+
+        gameObject.SetActive(false); // 死亡状態：非表示
+    }
     }
 
     /// <summary>
     /// リスポーン処理（初期位置へ戻す）
     /// </summary>
-    void Respawn()
+    public  void Respawn()
     {
-        transform.position = initialPosition;
-        m_Physics.linearVelocity = Vector3.zero;
-        m_Physics.angularVelocity = Vector3.zero;
-        gameObject.SetActive(true);
-        isAlive = true;
+    transform.position = initialPosition;
+    isAlive = true;
+    canAct = true;
+    gameObject.SetActive(true);
     }
 }
