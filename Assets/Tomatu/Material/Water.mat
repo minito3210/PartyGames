@@ -103,7 +103,7 @@ Material:
     - _WaveHeight: 0.1
     - _WaveScale: 0.3
     - _WaveSpeed: 1
-    - _WaveTime: 1.3533334
+    - _WaveTime: 5.543535
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
