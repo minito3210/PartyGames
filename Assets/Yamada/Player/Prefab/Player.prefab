@@ -119,6 +119,7 @@ GameObject:
   m_Component:
   - component: {fileID: 667395555714492898}
   - component: {fileID: 5091995243167771304}
+  - component: {fileID: -2263456983474264927}
   - component: {fileID: 7181379519740858737}
   - component: {fileID: 8241935603223737101}
   m_Layer: 0
@@ -172,6 +173,31 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &-2263456983474264927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6902553739832702136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 3995505775
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
 --- !u!114 &7181379519740858737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,10 +210,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57f856543296358448fce78b6502011b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   m_playerObject: {fileID: 7346497091338900244}
-  m_speed: 6
-  maxSpeed: 10
-  m_jumpPower: 550
+  m_speed: 10
+  maxSpeed: 20
+  m_jumpPower: 300
 --- !u!136 &8241935603223737101
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -311,6 +338,8 @@ MonoBehaviour:
   throwPoint: {fileID: 1971778132385080423}
   maxBombs: 1
   maxAllowedBombs: 5
+  explosionRadiusMultiplier: 1
+  knockbackForceMultiplier: 1
 --- !u!4 &7980326325682588078 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7423472531735332492, guid: 3c939450f9e639f458f0266779cbe5da, type: 3}
