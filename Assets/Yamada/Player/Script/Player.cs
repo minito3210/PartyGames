@@ -12,7 +12,6 @@ public class Player : NetworkBehaviour
    private Camera m_camera;
    [Header("移動速度"), SerializeField]
    private float m_speed;
-   public float maxSpeed = 2f; 
    [Header("ジャンプ力"), SerializeField]
    private float m_jumpPower;
 
@@ -64,7 +63,7 @@ public class Player : NetworkBehaviour
          }
       }
 
-      if (IsServer) // 👈 修正：自分のPlayerObjectだけ処理
+      if (IsServer) //自分のPlayerObjectだけ処理
       {
          ServerUpdate();
       }
@@ -119,18 +118,18 @@ public class Player : NetworkBehaviour
          Quaternion targetRotation = Quaternion.LookRotation(m_moveDirection);
          m_playerObject.transform.rotation = Quaternion.Slerp(m_playerObject.transform.rotation, targetRotation, Time.deltaTime * 10.0f);
 
-         m_rigidbody.AddForce(m_moveDirection * m_speed, ForceMode.Acceleration);
+         transform.position = transform.position + m_moveDirection * m_speed;
       }
 
       if(m_jumpRequested && m_jumpNum >= 0)
       {
-         m_rigidbody.AddForce(Vector3.up * m_jumpPower);
+         float jumpPower = m_jumpPower;
+         if (m_jumpNum == 0)
+         {
+            jumpPower *= 0.5f;
+         }
+         m_rigidbody.AddForce(Vector3.up * jumpPower);
          m_jumpRequested = false;
-      }
-
-      if(m_rigidbody.linearVelocity.magnitude > maxSpeed)
-      {
-         m_rigidbody.linearVelocity = m_rigidbody.linearVelocity.normalized * maxSpeed;
       }
    }
 
