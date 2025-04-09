@@ -18,6 +18,7 @@ public class LaserGameManager : MonoBehaviour
    [Header("リザルトシーン"), SerializeField]
    private string m_resultScene;
 
+   private List<Player> m_players = new List<Player>();     //参加プレイヤーのリスト
    public float m_timer { get; private set; } = 0.0f;
    private bool isChangingScene = false;
 
@@ -41,13 +42,13 @@ public class LaserGameManager : MonoBehaviour
          GameLevelUp();
       }
 
-      if (m_player.GetComponent<Player>().m_isGameOver && !isChangingScene)
-      {
-         Debug.Log("当たったことを検知");
-         isChangingScene = true;
-         //シーン切り替え
-         //StartCoroutine(ChangeSceneAfterDelay(2.0f));
-      }
+      //if (m_player.GetComponent<Player>().m_isGameOver && !isChangingScene)
+      //{
+      //   Debug.Log("当たったことを検知");
+      //   isChangingScene = true;
+      //   //シーン切り替え
+      //   //StartCoroutine(ChangeSceneAfterDelay(2.0f));
+      //}
    }
 
    private IEnumerator ChangeSceneAfterDelay(float delay)
