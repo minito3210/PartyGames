@@ -67,7 +67,7 @@ public class Bomb : MonoBehaviour
                 health.TakeDamage(damage);
             }
 
-            if (hit.CompareTag("Player"))
+            if (hit.CompareTag("Player") || hit.CompareTag("Enemy"))
             {
                 Rigidbody rb = hit.GetComponent<Rigidbody>();
                 if (rb != null)

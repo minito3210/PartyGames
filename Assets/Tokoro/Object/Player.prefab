@@ -701,6 +701,7 @@ MonoBehaviour:
   respawnPoint: {fileID: 4068493551054413097, guid: 1a04d3dd21bcafc4c87cb390f2552a3e, type: 3}
   invincibilityDuration: 3
   fallThresholdY: -10
+  isRespawn: 1
 --- !u!54 &7395917635214051858
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -25,17 +25,22 @@ public class PlayerCamera : MonoBehaviour
 
     void Update()
     {
+
         RotateCamera();
         ZoomCamera();
     }
 
     void RotateCamera()
     {
+      
+
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         yaw += mouseX;
 
         Quaternion rotation = Quaternion.Euler(pitch, yaw, 0); // 縦方向は動かさない
         Vector3 offset = rotation * new Vector3(0, 0, -distance);
+
+        if (target == null) return;
 
         // カメラの高さをプレイヤーの高さに固定
         Vector3 targetPosition = target.position;
