@@ -17,10 +17,12 @@ public class TurnManager : MonoBehaviour
 
     public int maxKillsToWin = 5;
 
-    private void Awake()
+    void Awake()
     {
-        if (Instance != null && Instance != this) Destroy(gameObject);
-        Instance = this;
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject); // シングルトンとして
     }
 
     public void RegisterCharacter(CharacterPull character)
@@ -47,7 +49,6 @@ public class TurnManager : MonoBehaviour
         currentCharacter = null;
 
         CheckWinCondition();
-
         turnCount++;
 
         // 周期終了後に使用キャラリセット
@@ -59,8 +60,25 @@ public class TurnManager : MonoBehaviour
         // プレイヤー交代
         currentPlayerTurn = (currentPlayerTurn == 1) ? 2 : 1;
 
-        // デバッグ用のログ
+        // ★ 死亡キャラを復活
+        RespawnPendingCharacters();
+
         Debug.Log($"EndTurn called. Turn {turnCount}, Player {currentPlayerTurn}");
+    }
+
+    private void RespawnPendingCharacters()
+    {
+        foreach (var kvp in playerCharacters)
+        {
+            foreach (var character in kvp.Value)
+            {
+                if (character != null && character.pendingRespawn && !character.gameObject.activeSelf)
+                {
+                    character.Respawn();
+                    character.pendingRespawn = false;
+                }
+            }
+        }
     }
 
     public void ReportKill(int killerPlayerID)
@@ -71,13 +89,13 @@ public class TurnManager : MonoBehaviour
         if (killCount[killerPlayerID] >= maxKillsToWin)
         {
             Debug.Log($"Player {killerPlayerID} wins!");
-            Invoke(nameof(RestartScene), 2f); // 2秒後にリスタート
+            Invoke(nameof(LoadTitleScene), 3f); // 3秒後にTitleSceneへ
         }
     }
 
-    private void RestartScene()
+    private void LoadTitleScene()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene("TitleScene");
     }
 
     private void CheckWinCondition()
@@ -92,7 +110,6 @@ public class TurnManager : MonoBehaviour
 
     public CharacterPull CurrentCharacter => currentCharacter;
 
-    // OnGUI() メソッドでターンとプレイヤー情報を画面に表示
     private void OnGUI()
     {
         GUI.Label(new Rect(10, 10, 200, 30), $"Turn: {turnCount + 1}", new GUIStyle() { fontSize = 20, normal = new GUIStyleState() { textColor = Color.white } });
