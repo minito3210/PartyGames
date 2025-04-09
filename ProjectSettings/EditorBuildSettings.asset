@@ -6,8 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/NGO_Minimal_Setup/NGO_Setup.unity
-    guid: 5c53191183b4d5b47a698188e1d3aa94
+    path: Assets/Sawaki/TitleScene.unity
+    guid: e8fc93649533b654aa611f7afd26f096
+  - enabled: 1
+    path: Assets/Sawaki/SelectScene.unity
+    guid: 7beace73189a7df44820aed287d51710
   - enabled: 1
     path: Assets/Tokoro/TokoroScene.unity
     guid: b13813692e9eddb47b4aeb67090f5e72
@@ -17,5 +20,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Yamada/Scene/PlayScene.unity
     guid: 6405272c826ac7b44920d3580e0a0383
+  - enabled: 1
+    path: Assets/NGO_Minimal_Setup/NGO_Setup.unity
+    guid: 5c53191183b4d5b47a698188e1d3aa94
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
