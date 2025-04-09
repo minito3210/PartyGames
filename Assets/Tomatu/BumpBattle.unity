@@ -443,6 +443,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1143224980475415028, guid: 730f9bd788c084649bebd988491e8260, type: 3}
+    - {fileID: 6694080910732429207, guid: 730f9bd788c084649bebd988491e8260, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -516,6 +517,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1143224980475415028, guid: 730f9bd788c084649bebd988491e8260, type: 3}
+    - {fileID: 6694080910732429207, guid: 730f9bd788c084649bebd988491e8260, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -761,6 +763,7 @@ MonoBehaviour:
   currentHP: 0
   speed: 5
   attackPower: 100
+  pendingRespawn: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -991,6 +994,7 @@ MonoBehaviour:
   currentHP: 0
   speed: 5
   attackPower: 10
+  pendingRespawn: 0
 --- !u!1 &1158181398 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1143224980475415019, guid: 730f9bd788c084649bebd988491e8260, type: 3}
@@ -1016,6 +1020,7 @@ MonoBehaviour:
   currentHP: 0
   speed: 5
   attackPower: 10
+  pendingRespawn: 0
 --- !u!1 &1227163087
 GameObject:
   m_ObjectHideFlags: 0
@@ -1086,6 +1091,7 @@ MonoBehaviour:
   currentHP: 0
   speed: 5
   attackPower: 10
+  pendingRespawn: 0
 --- !u!1 &1411460952 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1143224980475415019, guid: 730f9bd788c084649bebd988491e8260, type: 3}
@@ -1111,6 +1117,7 @@ MonoBehaviour:
   currentHP: 0
   speed: 5
   attackPower: 10
+  pendingRespawn: 0
 --- !u!1 &1435259185
 GameObject:
   m_ObjectHideFlags: 0
@@ -1501,6 +1508,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1143224980475415028, guid: 730f9bd788c084649bebd988491e8260, type: 3}
+    - {fileID: 6694080910732429207, guid: 730f9bd788c084649bebd988491e8260, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -1794,6 +1802,7 @@ MonoBehaviour:
   currentHP: 0
   speed: 5
   attackPower: 10
+  pendingRespawn: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
