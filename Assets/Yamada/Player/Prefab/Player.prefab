@@ -215,9 +215,9 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   m_playerObject: {fileID: 7346497091338900244}
   m_camera: {fileID: 2456060692179851956}
-  m_speed: 10
-  maxSpeed: 12
-  m_jumpPower: 380
+  m_speed: 0.2
+  maxSpeed: 1
+  m_jumpPower: 400
 --- !u!136 &8241935603223737101
 CapsuleCollider:
   m_ObjectHideFlags: 0
