@@ -8,6 +8,8 @@ public class Player : NetworkBehaviour
 {
    [Header("プレイヤーオブジェクト"), SerializeField]
    private GameObject m_playerObject;
+   [Header("カメラ"), SerializeField]
+   private Camera m_camera;
    [Header("移動速度"), SerializeField]
    private float m_speed;
    public float maxSpeed = 2f; 
@@ -27,17 +29,27 @@ public class Player : NetworkBehaviour
    // Start is called before the first frame update
    void Start()
    {
+      // 自分のプレイヤーだけカメラを有効にする
+      if (IsOwner && m_camera != null)
+      {
+         m_camera.enabled = true;
+      }
+      else
+      {
+         if (m_camera != null)
+         {
+            m_camera.enabled = false;
+         }
+      }
       m_rigidbody = GetComponent<Rigidbody>();
    }
 
-    // Update is called once per frame
+   // Update is called once per frame
    void Update()
    {
       if (IsOwner)
       {
          HandleInput();
-
-         //KeyPush();
 
          if (m_playerObject.transform.position.y <= -3.5f)
          {
@@ -48,18 +60,18 @@ public class Player : NetworkBehaviour
          }
       }
 
-      if (IsServer)
+      if (IsServer) // 👈 修正：自分のPlayerObjectだけ処理
       {
          ServerUpdate();
       }
    }
 
 
-   //入力処理(クライアントでのみ）
-   private void HandleInput()
+      //入力処理(クライアントでのみ）
+      private void HandleInput()
    {
       Vector3 moveDir = Vector3.zero;
-      Transform cameraTransform = Camera.main.transform;
+      Transform cameraTransform = m_camera.transform;
       Vector3 forward = cameraTransform.forward;
       Vector3 right = cameraTransform.right;
       forward.y = 0;
@@ -90,10 +102,10 @@ public class Player : NetworkBehaviour
    private void SendInputToServerRpc(Vector3 moveDir, bool jump)
    {
       m_moveDirection = moveDir.normalized;
-      if (jump && m_jumpNum > 0)
+      if (jump /*&& m_jumpNum > 0*/)
       {
          m_jumpRequested = true;
-         m_jumpNum -= 1;
+         //m_jumpNum -= 1;
       }
    }
 
@@ -108,10 +120,11 @@ public class Player : NetworkBehaviour
          m_rigidbody.AddForce(m_moveDirection * m_speed, ForceMode.Acceleration);
       }
 
-      if(m_jumpRequested)
+      if(m_jumpRequested && m_jumpNum > 0)
       {
          m_rigidbody.AddForce(Vector3.up * m_jumpPower);
          m_jumpRequested = false;
+         m_jumpNum -= 1;
       }
 
       if(m_rigidbody.linearVelocity.magnitude > maxSpeed)
@@ -136,53 +149,4 @@ public class Player : NetworkBehaviour
          m_jumpNum = 2;
       }
    }
-
-
-   ////キーボード入力処理
-   //private void KeyPush()
-   //{
-   //   Vector3 moveDirection = Vector3.zero;
-   //   // カメラのトランスフォームを取得
-   //   Transform cameraTransform = Camera.main.transform;
-   //   Vector3 forward = cameraTransform.forward;
-   //   Vector3 right = cameraTransform.right;
-   //   forward.y = 0; 
-   //   right.y = 0;
-
-   //   forward.Normalize();
-   //   right.Normalize();
-
-   //   // キーボード処理
-   //   if (Input.GetKey(KeyCode.W)) moveDirection += forward;
-   //   if (Input.GetKey(KeyCode.S)) moveDirection -= forward;
-   //   if (Input.GetKey(KeyCode.A)) moveDirection -= right;
-   //   if (Input.GetKey(KeyCode.D)) moveDirection += right;
-   //   if (m_jumpNum > 0 && Input.GetKeyDown(KeyCode.Space))
-   //   {
-   //      m_jumpNum -= 1;
-   //      m_rigidbody.AddForce(Vector3.up * m_jumpPower);
-   //   }
-
-   //   if (moveDirection != Vector3.zero)
-   //   {
-   //      moveDirection.Normalize();
-   //      //モデルに回転を与える(補間して)
-   //      Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
-   //      m_playerObject.transform.rotation = Quaternion.Slerp(m_playerObject.transform.rotation, targetRotation, Time.deltaTime * 10f);
-
-   //      m_rigidbody.AddForce(moveDirection * m_speed, ForceMode.Acceleration);
-   //   }
-
-   //   // 最大速度を超えないように制御
-   //   if (m_rigidbody.linearVelocity.magnitude > maxSpeed)
-   //   {
-   //      m_rigidbody.linearVelocity = m_rigidbody.linearVelocity.normalized * maxSpeed;
-   //   }
-   //}
-
-   //サーバー側で行う処理
-
-   //サーバーだけで呼び出すUpdate
-
-   //衝突判定
 }
