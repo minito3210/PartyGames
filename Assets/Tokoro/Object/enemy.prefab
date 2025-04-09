@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1143224980475415031}
   - component: {fileID: 1143224980475415030}
   - component: {fileID: 1143224980475415028}
+  - component: {fileID: 6694080910732429207}
   m_Layer: 0
   m_Name: enemy
   m_TagString: Enemy
@@ -151,8 +152,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5f810c1fd5052e428e054b846ec13b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 20
   respawnPoint: {fileID: 4068493551054413097, guid: 1a04d3dd21bcafc4c87cb390f2552a3e, type: 3}
   invincibilityDuration: 3
   fallThresholdY: -10
   isRespawn: 1
+--- !u!114 &6694080910732429207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143224980475415019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58c8caf29ba1f6a48b1290208593c1f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 3
+  wanderDuration: 5
+  throwInterval: 6
+  bombPrefab: {fileID: 3050483008656347375, guid: d4a16ddd41511994983f29414d91eeef, type: 3}
+  throwPoint: {fileID: 0}
