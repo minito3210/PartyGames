@@ -349,11 +349,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1 &872306941 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1143224980475415019, guid: 730f9bd788c084649bebd988491e8260, type: 3}
-  m_PrefabInstance: {fileID: 1143224980660430532}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -459,8 +454,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 765f3d7f67369cd4c8fdd787640dd952, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  distance: 3
+  minDistance: 2
+  maxDistance: 6
   mouseSensitivity: 100
-  playerBody: {fileID: 7423472531539027619}
+  zoomSpeed: 2
 --- !u!1 &970800605
 GameObject:
   m_ObjectHideFlags: 0
@@ -799,7 +798,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player1: {fileID: 7804360210817006617}
-  player2: {fileID: 872306941}
+  enemies: []
+  nextSceneName: ResultScene
+  countdownText: {fileID: 0}
+  countdownTime: 3
 --- !u!4 &1768325468
 Transform:
   m_ObjectHideFlags: 0

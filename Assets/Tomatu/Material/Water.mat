@@ -113,7 +113,7 @@ Material:
     - _WaveHeight: 0.1
     - _WaveScale: 0.3
     - _WaveSpeed: 1
-    - _WaveTime: 4.272709
+    - _WaveTime: 29.727356
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 0.19999996, g: 0.5, b: 0.7, a: 0.5}
