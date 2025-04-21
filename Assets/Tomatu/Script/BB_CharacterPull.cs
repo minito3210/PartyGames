@@ -4,7 +4,7 @@ using UnityEngine;
 /// マウスでキャラを引っ張って動かすコンポーネント
 /// ターン制バトルの各キャラクターにアタッチ
 /// </summary>
-public class CharacterPull : MonoBehaviour
+public class BB_CharacterPull : MonoBehaviour
 {
     // メインカメラ関連
     private Camera m_MainCamera;
@@ -52,7 +52,7 @@ private const float requiredStopDuration = 0.5f; // 0.5秒停止し続けたら�
         currentHP = maxHP;
 
         // キャラ登録（TurnManagerへ）
-        TurnManager.Instance.RegisterCharacter(this);
+        BB_TurnManager.Instance.RegisterCharacter(this);
     }
 
     void Update()
@@ -67,7 +67,7 @@ private const float requiredStopDuration = 0.5f; // 0.5秒停止し続けたら�
             {
                 isLaunched = false;
                 stopTimer = 0f;
-                TurnManager.Instance.EndTurn(this);
+                BB_TurnManager.Instance.EndTurn(this);
 
                 if (pendingRespawn)
                 {
@@ -98,11 +98,11 @@ private const float requiredStopDuration = 0.5f; // 0.5秒停止し続けたら�
     void OnMouseDown()
     {
         // 自分のターンなら操作開始
-        if (TurnManager.Instance.CanControl(this))
+        if (BB_TurnManager.Instance.CanControl(this))
         {
             m_DragStart = GetMousePosition();
             isSelected = true;
-            TurnManager.Instance.SetCurrentCharacter(this);
+            BB_TurnManager.Instance.SetCurrentCharacter(this);
         }
     }
 
@@ -145,16 +145,16 @@ void OnCollisionEnter(Collision collision)
 {
     Debug.Log("OnCollisionEnter 発火");
 
-    var other = collision.gameObject.GetComponent<CharacterPull>();
+    var other = collision.gameObject.GetComponent<BB_CharacterPull>();
     if (other == null)
     {
         Debug.Log("相手が CharacterPull を持ってない");
         return;
     }
 
-    Debug.Log($"CurrentCharacter: {TurnManager.Instance.CurrentCharacter.name}, this: {this.name}");
+    Debug.Log($"CurrentCharacter: {BB_TurnManager.Instance.CurrentCharacter.name}, this: {this.name}");
 
-    if (TurnManager.Instance.CurrentCharacter == this && other.playerID != this.playerID)
+    if (BB_TurnManager.Instance.CurrentCharacter == this && other.playerID != this.playerID)
     {
         Debug.Log("敵にぶつかった！");
         other.TakeDamage(this.attackPower);

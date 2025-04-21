@@ -2,18 +2,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class TurnManager : MonoBehaviour
+public class BB_TurnManager : MonoBehaviour
 {
-    public static TurnManager Instance;
+    public static BB_TurnManager Instance;
 
     private int currentPlayerTurn = 1; // 1: Player1, 2: Player2
     private int turnCount = 0;
 
-    private Dictionary<int, List<CharacterPull>> playerCharacters = new Dictionary<int, List<CharacterPull>>();
+    private Dictionary<int, List<BB_CharacterPull>> playerCharacters = new Dictionary<int, List<BB_CharacterPull>>();
     private Dictionary<int, int> killCount = new Dictionary<int, int>() { { 1, 0 }, { 2, 0 } };
 
-    private HashSet<CharacterPull> usedCharactersThisCycle = new HashSet<CharacterPull>();
-    private CharacterPull currentCharacter = null;
+    private HashSet<BB_CharacterPull> usedCharactersThisCycle = new HashSet<BB_CharacterPull>();
+    private BB_CharacterPull currentCharacter = null;
 
     public int maxKillsToWin = 5;
 
@@ -25,16 +25,16 @@ public class TurnManager : MonoBehaviour
             Destroy(gameObject); // シングルトンとして
     }
 
-    public void RegisterCharacter(CharacterPull character)
+    public void RegisterCharacter(BB_CharacterPull character)
     {
         if (!playerCharacters.ContainsKey(character.playerID))
         {
-            playerCharacters[character.playerID] = new List<CharacterPull>();
+            playerCharacters[character.playerID] = new List<BB_CharacterPull>();
         }
         playerCharacters[character.playerID].Add(character);
     }
 
-    public bool CanControl(CharacterPull character)
+    public bool CanControl(BB_CharacterPull character)
     {
         return character.playerID == currentPlayerTurn
             && character.canAct
@@ -43,7 +43,7 @@ public class TurnManager : MonoBehaviour
             && currentCharacter == null;
     }
 
-    public void EndTurn(CharacterPull character)
+    public void EndTurn(BB_CharacterPull character)
     {
         usedCharactersThisCycle.Add(character);
         currentCharacter = null;
@@ -103,12 +103,12 @@ public class TurnManager : MonoBehaviour
         // 勝利判定は ReportKill に任せる
     }
 
-    public void SetCurrentCharacter(CharacterPull character)
+    public void SetCurrentCharacter(BB_CharacterPull character)
     {
         currentCharacter = character;
     }
 
-    public CharacterPull CurrentCharacter => currentCharacter;
+    public BB_CharacterPull CurrentCharacter => currentCharacter;
 
     private void OnGUI()
     {
